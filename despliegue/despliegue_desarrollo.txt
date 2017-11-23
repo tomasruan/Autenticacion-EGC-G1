@@ -4,4 +4,8 @@ docker run -d --name mariadb -e MARIADB_ROOT_PASSWORD=root123 -e MARIADB_USER=us
 
 2) Lo segundo que necesitamos es instalar las dependecias del projecto, como nosotros vamos a usar Python 3, haremos uso de su gestor de dependencias 'pip3'. Instalaremos todas las dependencias con el archivo 'requirements.txt' provisto en este mismo directorio
 
-3) Lo tercero es 
+3) Lo tercero es inicializar la base de datos, para ello añadimos: 'FLASK_APP=database.py' al path, y ejecutamos:
+
+flask initdb
+
+4) Ya se puede ejecutar el proyecto con todo el entorno de desarrollo preparado
