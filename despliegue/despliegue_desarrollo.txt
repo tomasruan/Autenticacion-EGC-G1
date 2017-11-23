@@ -1,0 +1,7 @@
+1) Lo primero que necesitamos es desplegar la base de datos para poder levantar el proyecto exitósamente, para ello haremos uso de Docker para desplegar la base de datos MariaDB:
+
+docker run -d --name mariadb -e MARIADB_ROOT_PASSWORD=root123 -e MARIADB_USER=user -e MARIADB_PASSWORD=user123 -e MARIADB_DATABASE=database_login -p 3306:3306 bitnami/mariadb:latest
+
+2) Lo segundo que necesitamos es instalar las dependecias del projecto, como nosotros vamos a usar Python 3, haremos uso de su gestor de dependencias 'pip3'. Instalaremos todas las dependencias con el archivo 'requirements.txt' provisto en este mismo directorio
+
+3) Lo tercero es 
