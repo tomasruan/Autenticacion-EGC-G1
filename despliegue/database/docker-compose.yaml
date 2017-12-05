@@ -1,0 +1,12 @@
+version: "2"
+services:
+  mysql:
+    image: 'mariadb:10.1'
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: 'splc2017'
+    volumes: 
+      - ./db_dump:/docker-entrypoint-initdb.d
+      - /var/lib/mysql
+    ports:
+      - "3306:3306"

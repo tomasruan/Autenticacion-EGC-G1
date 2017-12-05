@@ -1,11 +1,15 @@
-1) Lo primero que necesitamos es desplegar la base de datos para poder levantar el proyecto exitósamente, para ello haremos uso de Docker para desplegar la base de datos MariaDB:
+1) Lo primero que necesitamos es desplegar la base de datos para poder levantar el proyecto exitósamente, para ello haremos uso de Docker para desplegar la base de datos MariaDB, los scripts de la base de datos se encuentran en este mismo directorio en la carpeta 'database'. Abriendo una consola en el directorio 'database', tendrás que construir la imagen de Docker la primera vez, para ello se ejecutará:
 
-docker run -d --name mariadb -e MARIADB_ROOT_PASSWORD=root123 -e MARIADB_USER=user -e MARIADB_PASSWORD=user123 -e MARIADB_DATABASE=database_login -p 3306:3306 bitnami/mariadb:latest
+docker-compose up -d --build
+
+Una vez la imagen esté construida y corriendo, para pararla se ejecutaría:
+docker-compose stop
+
+Y para arrancarla de nuevo:
+docker-compose start -d
+
 
 2) Lo segundo que necesitamos es instalar las dependecias del projecto, como nosotros vamos a usar Python 3, haremos uso de su gestor de dependencias 'pip3'. Instalaremos todas las dependencias con el archivo 'requirements.txt' provisto en este mismo directorio
 
-3) Lo tercero es inicializar la base de datos, para ello añadimos: 'FLASK_APP=database.py' al path, y ejecutamos:
 
-flask initdb
-
-4) Ya se puede ejecutar el proyecto con todo el entorno de desarrollo preparado
+3) Ya se puede ejecutar el proyecto con todo el entorno de desarrollo preparado

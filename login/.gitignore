@@ -21,6 +21,9 @@
 .idea/*
 
 
+
+__pycache__
+
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
