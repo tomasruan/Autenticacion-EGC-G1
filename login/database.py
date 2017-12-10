@@ -18,3 +18,24 @@ class TableNameExample(db.Model):
 class TableNameExampleSchema(ma.ModelSchema):
     class Meta:
         model = TableNameExample
+
+
+class Cookie(db.Model):
+    number_id=db.Column(db.Integer,primary_key=True)
+    user_account_id = db.Column(db.Integer)
+
+class CookieSchema(ma.ModelSchema):
+    class Meta:
+        model = Cookie
+
+class User_account(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username=db.Column(db.String(50))
+    password = db.Column(db.String(50))
+    email =db.Column(db.String(100))
+    role_id= db.Column(db.Integer)
+
+
+class User_accountSchema(ma.ModelSchema):
+    class Meta:
+        model = User_account
