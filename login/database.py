@@ -59,3 +59,7 @@ class roleSchema(ma.ModelSchema):
     class Meta:
         model = role
 
+
+class user_accountSchema(ma.ModelSchema):
+    class Meta:
+        model = user_account
