@@ -19,6 +19,15 @@ class TableNameExample(db.Model):
 
 #Modelos de las tablas
 
+
+class role(db.Model):
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    name = db.Column(db.String(10), nullable=False)
+    
+    def __repr__(self):
+        return '<Role %r>' % self.name
+
+
 class user_account(db.Model):
     id = db.Column(db.Integer, nullable = False, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -29,6 +38,7 @@ class user_account(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
 
 class cookie(db.Model):
     number_id = db.Column(db.Integer, nullable=False, primary_key=True)
