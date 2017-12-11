@@ -63,3 +63,8 @@ class roleSchema(ma.ModelSchema):
 class user_accountSchema(ma.ModelSchema):
     class Meta:
         model = user_account
+
+
+class cookieSchema(ma.ModelSchema):
+    class Meta:
+        model = cookie
