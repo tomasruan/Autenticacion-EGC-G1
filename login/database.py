@@ -24,7 +24,7 @@ class user_account(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    role_id = db.Column(db.Integer, nullable=False, foreign_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
     title = db.Column(db.String(100),)
 
     def __repr__(self):
