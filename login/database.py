@@ -23,7 +23,7 @@ class TableNameExample(db.Model):
 class role(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     name = db.Column(db.String(10), nullable=False)
-    
+
     def __repr__(self):
         return '<Role %r>' % self.name
 
@@ -49,6 +49,13 @@ class cookie(db.Model):
 
 #Schemas de las tablas
 
+
 class TableNameExampleSchema(ma.ModelSchema):
     class Meta:
         model = TableNameExample
+
+
+class roleSchema(ma.ModelSchema):
+    class Meta:
+        model = role
+
