@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-#Vamos a necesitar 2 modelos y 2 schemas (1 schema por cada modelo)
+#Vamos a necesitar 3 modelos y 3 schemas (1 schema por cada modelo)
 
 
 class TableNameExample(db.Model):
@@ -30,6 +30,12 @@ class user_account(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class cookie(db.Model):
+    number_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Cookie %r>' % self.number_id
 
 #Schemas de las tablas
 
