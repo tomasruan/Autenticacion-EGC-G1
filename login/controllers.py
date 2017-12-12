@@ -84,14 +84,5 @@ def logout_user(number_id):
 
 
 
-@app.route('/')
-def home():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
-        return "usuario ya logeado  <a href='/logout'>Logout</a>"
-
-
-
 if __name__ == '__main__':
     app.run()
