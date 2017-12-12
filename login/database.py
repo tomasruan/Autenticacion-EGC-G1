@@ -37,25 +37,3 @@ class cookie(db.Model):
 
     def __repr__(self):
         return '<Cookie %r>' % self.number_id
-
-#Schemas de las tablas
-
-
-class TableNameExampleSchema(ma.ModelSchema):
-    class Meta:
-        model = TableNameExample
-
-
-class roleSchema(ma.ModelSchema):
-    class Meta:
-        model = role
-
-
-class user_accountSchema(ma.ModelSchema):
-    class Meta:
-        model = user_account
-
-
-class cookieSchema(ma.ModelSchema):
-    class Meta:
-        model = cookie
