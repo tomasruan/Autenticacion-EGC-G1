@@ -2,7 +2,7 @@ from database import db, TableNameExample, TableNameExampleSchema
 from database import Cookie, CookieSchema, User_account
 from flask import request
 from flask.json import jsonify
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, session, render_template
 
 
 app = Flask(__name__)
@@ -76,20 +76,30 @@ def logout_user(number_id):
         try:
             db.session.delete(cookie)
             db.session.commit()
-            cookie_dict = {"id": cookie.number_id,
-                                 "user_account_id": cookie.user_account_id}
-            res = {"codigo": 1,
-                   "status": "usuario encontrado y existente en la base de datos",
-                   "cookie": cookie_dict, }
+            # cookie_dict = {"id": cookie.number_id,
+            #                      "user_account_id": cookie.user_account_id}
+            # res = {"codigo": 1,
+            #        "status": "usuario encontrado y existente en la base de datos",
+            #        "cookie": cookie_dict, }
         except:
-            res = {"codigo": -1,
-                   "status": "No se pudo borrar la cookie",
-                   "cookie": cookie_dict, }
+            pass
+            # res = {"codigo": -1,
+            #        "status": "No se pudo borrar la cookie",
+            #        "cookie": cookie_dict, }
+    # else:
+    #     res= {"codigo":0,
+    #           "status":"no hay ninguna cookie, no se hizo ningun login",
+    #           "cookie":None,}
+    #return jsonify(logout_user=res)
+    return home()
+
+
+@app.route('/')
+def home():
+    if not session.get('logged_in'):
+        return render_template('login.html')
     else:
-        res= {"codigo":0,
-              "status":"no hay ninguna cookie, no se hizo ningun login",
-              "cookie":None,}
-    return jsonify(logout_user=res)
+        return "usuario ya logeado  <a href='/logout'>Logout</a>"
 
 
 if __name__ == '__main__':
