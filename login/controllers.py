@@ -44,20 +44,16 @@ def check_cookies(number_id):
     cookie_schema = CookieSchema(many=True)
     cookie_db = Cookie.query.get(cookie_id)
     if cookie_db is not None:
-        try:
-            user_account_db=User_account.query.get(cookie_db.user_account_id)
-            user_account_dict={"id":user_account_db.id,
-                               "username":user_account_db.username,
-                               "password":user_account_db.password,
-                               "email":user_account_db.email,
-                               "role_id":user_account_db.role_id}
-            res= {"codigo":1,
-                  "status":"Cookie valida y existente en la base de datos",
-                  "usuario":user_account_dict,}
-        except:
-            res = {"codigo": -1,
-                   "status": "Coincidencia de cookie encontrada en la base de datos pero no es posible obtener el User Account",
-                   "usuario": None, }
+
+        user_account_db=User_account.query.get(cookie_db.user_account_id)
+        user_account_dict={"id":user_account_db.id,
+                           "username":user_account_db.username,
+                           "password":user_account_db.password,
+                           "email":user_account_db.email,
+                           "role_id":user_account_db.role_id}
+        res= {"codigo":1,
+              "status":"Cookie valida y existente en la base de datos",
+              "usuario":user_account_dict,}
     else:
         res= {"codigo":0,
               "status":"Cookie Incorrecta, no existe en la base de datos",
