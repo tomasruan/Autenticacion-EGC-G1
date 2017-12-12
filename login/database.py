@@ -15,7 +15,7 @@ ma = Marshmallow(app)
 
 class TableNameExample(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100),)
+    title = db.Column(db.String(100))
 
 #Modelos de las tablas
 
@@ -34,7 +34,6 @@ class user_account(db.Model):
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
-    title = db.Column(db.String(100),)
 
     def __repr__(self):
         return '<User %r>' % self.username
