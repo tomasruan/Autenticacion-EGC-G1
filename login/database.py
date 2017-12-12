@@ -18,3 +18,13 @@ class TableNameExample(db.Model):
 class TableNameExampleSchema(ma.ModelSchema):
     class Meta:
         model = TableNameExample
+
+
+class Role(db.Model):
+    role_id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(10))
+
+
+class RoleSchema(ma.ModelSchema):
+    class Meta:
+        model = Role
