@@ -1,4 +1,4 @@
-from database import db, TableNameExample, TableNameExampleSchema
+from database import db, Cookie, Role, User_account
 from flask import Flask, redirect, url_for
 
 
