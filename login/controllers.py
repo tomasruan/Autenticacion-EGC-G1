@@ -4,14 +4,6 @@ from flask.json import jsonify
 
 app = Flask(__name__)
 
-@app.route('/addCookie')
-def addCookieTest():
-
-    cookieTest = Cookie(number_id=2147483647, user_account_id=3)
-
-    db.session.add(cookieTest)
-    db.session.commit()
-    return 'Hola'
 
 @app.route('/cookie/<int:number_id>')
 def check_cookies(number_id):
@@ -31,8 +23,8 @@ def check_cookies(number_id):
     else:
         res= {"codigo":0,
               "status":"Cookie Incorrecta, no existe en la base de datos",
-              "usuario":None}
-        
+              "usuario": None}
+
     return jsonify(res)
 
 
