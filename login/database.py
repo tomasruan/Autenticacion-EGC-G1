@@ -10,15 +10,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-#Vamos a necesitar 3 modelos y 3 schemas (1 schema por cada modelo)
-
-
-class TableNameExample(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-
 #Modelos de las tablas
-
 
 class role(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
