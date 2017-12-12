@@ -12,7 +12,7 @@ ma = Marshmallow(app)
 
 #Modelos de las tablas
 
-class role(db.Model):
+class Role(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     name = db.Column(db.String(10), nullable=False)
 
@@ -20,7 +20,7 @@ class role(db.Model):
         return '<Role %r>' % self.name
 
 
-class user_account(db.Model):
+class User_account(db.Model):
     id = db.Column(db.Integer, nullable = False, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
@@ -31,7 +31,7 @@ class user_account(db.Model):
         return '<User %r>' % self.username
 
 
-class cookie(db.Model):
+class Cookie(db.Model):
     number_id = db.Column(db.Integer, nullable=False, primary_key=True)
     user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'), nullable=False)
 
