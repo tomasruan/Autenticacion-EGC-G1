@@ -28,28 +28,23 @@ def root():
 
     return prueba_schema.dump(prueba).data
 
-@app.route('/assignRole/<int:id>/<int:role_id>')
-def assign_role(id, role_id):
-    roleNumber_id = role_id
-    users = User_account.query.all()
-    print(len(users))
-    user = User_account.query.get(id)
+@app.route('/users/<int:user_id>/role', methods=['PUT'])
+def assign_role(user_id):
+    user = User_account.query.get(user_id).first()
     if user is not None:
-        user.role_id = roleNumber_id
-        db.session.commit()
         user_account_assigned={"id":user.id,
-                           "username":user.username,
-                           "password":user.password,
-                           "email":user.email,
-                           "role_id":roleNumber_id}
-        res= {"codigo":1,
-              "status":"Role cambiado",
-              "usuario":user_account_assigned,}
+                   "username":user.username,
+                   "password":user.password,
+                   "email":user.email,
+                   "role_id":request.json.get('role_id', user['role_id'])}
+        res = {"codigo":1,
+            "status":"Role cambiado",
+            "usuario":user_account_assigned,}
     else:
-        res= {"codigo":0,
-              "status":"Id de usuario incorrecta, no existe en la base de datos",
-              "usuario":None,}
-    return jsonify(assignRole=res)
+        res = {"codigo":0,
+            "status":"Id de usuario incorrecta, no existe en la base de datos",
+            "usuario":None,}
+    return jsonify(user = res)
 
 if __name__ == '__main__':
     app.run()
