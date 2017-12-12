@@ -64,5 +64,33 @@ def check_cookies(number_id):
               "usuario":None,}
     return jsonify(checkCookie=res)
 
+
+
+@app.route('/logout/<int:number_id>')
+def logout_user(number_id):
+    #saco la cookie
+    #cookie= Flask.request.cookies.get('my_cookie')
+    cookie_id = number_id
+    cookie = Cookie.query.get(cookie_id)
+    if cookie is not None:
+        try:
+            db.session.delete(cookie)
+            db.session.commit()
+            cookie_dict = {"id": cookie.number_id,
+                                 "user_account_id": cookie.user_account_id}
+            res = {"codigo": 1,
+                   "status": "usuario encontrado y existente en la base de datos",
+                   "cookie": cookie_dict, }
+        except:
+            res = {"codigo": -1,
+                   "status": "No se pudo borrar la cookie",
+                   "cookie": cookie_dict, }
+    else:
+        res= {"codigo":0,
+              "status":"no hay ninguna cookie, no se hizo ningun login",
+              "cookie":None,}
+    return jsonify(logout_user=res)
+
+
 if __name__ == '__main__':
     app.run()
