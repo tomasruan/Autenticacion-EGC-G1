@@ -5,7 +5,7 @@ from flask.json import jsonify
 app = Flask(__name__)
 
 
-@app.route('/cookie/<int:number_id>')
+@app.route('/cookies/<int:number_id>')
 def check_cookies(number_id):
     cookie_id = number_id
     cookie_db = Cookie.query.get(cookie_id)
