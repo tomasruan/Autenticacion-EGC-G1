@@ -28,22 +28,31 @@ def root():
 
     return prueba_schema.dump(prueba).data
 
-@app.route('/users/<int:user_id>/role', methods=['PATCH'])
+@app.route('/users/<int:user_id>/role', methods=['PUT'])
 def assign_role(user_id):
-    user = User_account.query.get(user_id)
+    user = User_account.query.filter_by(id=user_id).first()
+    new_role = request.json.get('role_id')
     if user is not None:
-        if request.json.get('role_id') == 1 | 2:
-            user.role_id = request.json.get('role_id')
-            print(request.json.get('role_id'))
-            print(user.role_id)
+        if new_role in (1,2):
+            user.role_id = new_role
+            db.session.commit()
+            user_account_json = {"id": user.id,
+                                 "username": user.username,
+                                 "password": user.password,
+                                 "email": user.email,
+                                 "role_id": user.role_id}
             res = {"codigo":1,
                 "status":"Role cambiado",
-                "usuario":user,}
+                "usuario":user_account_json,}
+        else:
+            res = {"codigo": 2,
+                   "status": "Role incorrecto, es diferente de 1 o 2",
+                   "usuario": None, }
     else:
         res = {"codigo":0,
             "status":"Id de usuario incorrecta, no existe en la base de datos",
             "usuario":None,}
-    return jsonify(user = res)
+    return jsonify(res)
 
 if __name__ == '__main__':
     app.run()
