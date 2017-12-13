@@ -37,4 +37,3 @@ class Cookie(db.Model):
 
     def __repr__(self):
         return '<Cookie %r>' % self.number_id
-
