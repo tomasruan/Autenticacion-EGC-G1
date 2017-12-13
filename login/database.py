@@ -37,6 +37,12 @@ class User_account(db.Model):
     email =db.Column(db.String(100))
     role_id= db.Column(db.Integer)
 
+    def __init__(self, id, username, password, email, role_id):
+        self.id = id
+        self.username = username
+        self.password = password
+        self.email = email
+        self.role_id = role_id
 
 class User_accountSchema(ma.ModelSchema):
     class Meta:
