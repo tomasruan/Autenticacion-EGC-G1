@@ -43,12 +43,13 @@ def logout_user(number_id):
 @app.route('/users/<int:user_id>/role', methods=['PUT'])
 def assign_role(user_id):
     user = User_account.query.filter_by(id=user_id).first()
-    new_role = request.json.get('role_id')
+    role_assigned = Role.query.get(request.json.get('role_id'))
 
     if user is not None:
-        if new_role in (1, 2):
-            user.role_id = new_role
+        if role_assigned is not None:
+            user.role_id = role_assigned.id
             db.session.commit()
+
             user_account_json = {"id": user.id,
                                  "username": user.username,
                                  "password": user.password,
@@ -60,7 +61,7 @@ def assign_role(user_id):
 
         else:
             res = {"codigo": 2,
-                   "status": "Role incorrecto, es diferente de 1 o 2",
+                   "status": "Role incorrecto, no existe tal role",
                    "usuario": None}
     else:
         res = {"codigo": 0,
