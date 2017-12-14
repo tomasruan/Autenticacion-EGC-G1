@@ -1,8 +1,57 @@
 from database import db, Cookie, Role, User_account
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, make_response
 from flask.json import jsonify
+from passlib.hash import phpass
+from random import randint
 
 app = Flask(__name__)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        cookie = Cookie.query.filter_by(number_id=request.cookies.get('session_id')).first()
+
+        if cookie is None:
+            return render_template('login.html')
+        else:
+            return redirect('/')
+
+    elif request.method == 'POST':
+        #Comprobar que no son vacios
+        form_username = request.form['username']
+        form_password = request.form['password']
+
+        user_from_db = User_account.query.filter_by(username=form_username).first()
+
+        if user_from_db is not None:
+            if phpass.verify(form_password, user_from_db.password):
+                saved_cookie = create_cookie_and_save(user_from_db)
+
+                response = make_response(redirect('/'))
+                response.set_cookie('session_id', value=str(saved_cookie.number_id))
+
+                return response
+            else:
+                return render_template('login.html', error='La contraseña no coincide con la del usuario')
+        else:
+            return render_template('login.html', error='No existe el usuario')
+
+
+def create_cookie_and_save(user):
+    number_id = random_with_n_digits(7)
+    cookie = Cookie(number_id=number_id, user_account_id=user.id)
+
+    db.session.add(cookie)
+    db.session.commit()
+
+    return cookie
+
+
+def random_with_n_digits(n):
+    range_start = 10 ** (n - 1)
+    range_end = (10 ** n) - 1
+    return randint(range_start, range_end)
 
 
 @app.route('/cookies/<int:number_id>')
@@ -37,7 +86,7 @@ def logout_user(number_id):
         db.session.delete(cookie)
         db.session.commit()
 
-    return redirect('/login')
+    return redirect(url_for('login'))
 
 
 @app.route('/users/<int:user_id>/role', methods=['PUT'])

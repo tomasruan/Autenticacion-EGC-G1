@@ -21,7 +21,7 @@ class Role(db.Model):
 
 
 class User_account(db.Model):
-    id = db.Column(db.Integer, nullable = False, primary_key=True)
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
