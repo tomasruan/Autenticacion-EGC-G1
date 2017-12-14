@@ -76,3 +76,10 @@ box-shadow: none;
   display: block;
 	margin-top: 12px;
 }
+
+p.error {
+    color: red;
+    text-align: center;
+    background-color: white;
+    padding: 15px;
+}
