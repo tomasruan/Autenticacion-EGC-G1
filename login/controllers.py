@@ -11,7 +11,6 @@ app = Flask(__name__)
 def login():
     if request.method == 'GET':
         cookie = Cookie.query.filter_by(number_id=request.cookies.get('session_id')).first()
-
         if cookie is None:
             return render_template('login.html')
         else:
@@ -54,7 +53,7 @@ def random_with_n_digits(n):
     return randint(range_start, range_end)
 
 
-@app.route('/cookies/<int:number_id>')
+@app.route('/cookies/<string:number_id>')
 def check_cookies(number_id):
     cookie_id = number_id
     cookie_db = Cookie.query.get(cookie_id)
