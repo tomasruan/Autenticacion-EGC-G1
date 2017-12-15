@@ -17,9 +17,11 @@ def login():
             return redirect('/')
 
     elif request.method == 'POST':
-        #Comprobar que no son vacios
         form_username = request.form['username']
         form_password = request.form['password']
+
+        if not validate(form_username, form_password):
+            return render_template('login.html', error='No deje ningún campo en blanco')
 
         user_from_db = User_account.query.filter_by(username=form_username).first()
 
@@ -51,6 +53,14 @@ def random_with_n_digits(n):
     range_start = 10 ** (n - 1)
     range_end = (10 ** n) - 1
     return randint(range_start, range_end)
+
+
+def validate(*params):
+    for parameter in params:
+        if not parameter:
+            return False
+
+    return True
 
 
 @app.route('/cookies/<string:number_id>')
