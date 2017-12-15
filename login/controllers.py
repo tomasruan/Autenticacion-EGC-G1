@@ -119,5 +119,9 @@ def assign_role(user_id):
     return jsonify(res)
 
 
+def get_app():
+    return app
+
+
 if __name__ == '__main__':
     app.run()
