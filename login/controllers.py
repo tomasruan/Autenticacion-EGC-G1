@@ -3,6 +3,8 @@ from flask import Flask, redirect, url_for, request, render_template, make_respo
 from flask.json import jsonify
 from passlib.hash import phpass
 from random import randint
+import hashlib
+
 
 app = Flask(__name__)
 
@@ -40,11 +42,23 @@ def login():
 
 
 def create_cookie_and_save(user):
-    number_id = random_with_n_digits(7)
-    cookie = Cookie(number_id=number_id, user_account_id=user.id)
+    random_number = random_with_n_digits(15)
+    number_id_unhashed = (user.username*4) + str(random_number) + user.password
 
-    db.session.add(cookie)
-    db.session.commit()
+    hasher = hashlib.sha1()
+    hasher.update(number_id_unhashed.encode())
+
+    number_id = hasher.hexdigest()
+
+    cookie = Cookie.query.filter_by(user_account_id=user.id).first()
+
+    if not cookie:
+        cookie = Cookie(number_id=number_id, user_account_id=user.id)
+        db.session.add(cookie)
+        db.session.commit()
+    else:
+        cookie.number_id = number_id
+        db.session.commit()
 
     return cookie
 
