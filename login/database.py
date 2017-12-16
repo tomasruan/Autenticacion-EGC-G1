@@ -32,7 +32,7 @@ class User_account(db.Model):
 
 
 class Cookie(db.Model):
-    number_id = db.Column(db.String, nullable=False, primary_key=True)
+    number_id = db.Column(db.String(40), nullable=False, primary_key=True)
     user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'), nullable=False)
 
     def __repr__(self):
