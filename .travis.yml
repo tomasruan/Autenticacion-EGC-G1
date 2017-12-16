@@ -16,5 +16,5 @@ before_install:
   - mysql -u root --default-character-set=utf8 votaciones_splc < despliegue/database/db_dump/02_script_populate_votaciones_splc.sql
 
 script:
-  - python login/controllers.py
+  - pytest
 
