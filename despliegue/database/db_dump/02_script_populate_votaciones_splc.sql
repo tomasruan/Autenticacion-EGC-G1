@@ -1,7 +1,6 @@
 USE `votaciones_splc`;
 
 #UserAccount
-
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (1, 'marlon86', '$P$HiBXvHdbHV9/iPQRxrZY8Llm9L61m/1', 'cleveland46@example.com', 1);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (2, 'julie70', '$P$HjFCjOirFJajRTEfn690iRbyJJUmTP0', 'bbode@example.org', 1);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (3, 'rickey.nolan', '$P$HQg5ArJ4SmSa2YsTzyskwgmQw3UwoV0', 'imosciski@example.com', 2);
@@ -20,12 +19,12 @@ INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALU
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (16, 'runolfsson.malcolm', '$P$HMG5jcpjyX.M/Eb8GS5YAXfbehJztv.', 'leonardo99@example.com', 2);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (17, 'ryan.cleta', '$P$HpmB5AI5trF/I3WKWNiBKzv25qtcUe1', 'dwindler@example.net', 1);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (18, 'kmurray', '$P$HHgWQUoVuu4NLQHNJssAfE929Spv1T0', 'elliott05@example.org', 1);
-INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (19, 'icie.eichmann', '$P$H3mDoBN.xrVgDD1pKNS8FMNPOVmiuk/', 'klein.waino@example.com', 2);
+INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (19, 'icie.eichmann', '$P$H3mDoBN.xrVgDD1pKNS8FMNPOVmiuk', 'klein.waino@example.com', 2);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (20, 'wdavis', '$P$Hmoe/s7vEYuvK0DV7V/Nvzo8ez0L1G0', 'braeden.wunsch@example.com', 2);
-INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (21, 'murazik.marcelo', '$P$HcoBbm27cL.UosvuGYP3FPMPJS3Jig/', 'kennedy47@example.net', 1);
+INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (21, 'murazik.marcelo', 'HcoBbm27cL.UosvuGYP3FPMPJS3Jig/', 'kennedy47@example.net', 1);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (22, 'hcrona', '$P$HehpqCWt6fIZ8pDfKLdBMmZoqZ8LNJ/', 'rodrigo71@example.net', 2);
-INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (23, 'abernathy.carmen', '$P$HUGWNZTqDmzhC3pf2PI97EzC1ginKQ0', 'mckenna.gottlieb@example.com', 2);
-INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (24, 'awisoky', '$P$HuRQHlPKfrgXP.mCobmualpzdeVUHk1', 'neil.kunze@example.net', 2);
+INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (23, 'abernathy.carmen', '$P$HUGWNZTqDmzhC3pf2PI97EzC1ginKQ0/', 'mckenna.gottlieb@example.com', 2);
+INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (24, 'awisoky', '$P$uRQHlPKfrgXP.mCobmualpzdeVUHk1', 'neil.kunze@example.net', 2);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (25, 'susie.hintz', '$P$HfNomNtpw8kQUcxcVwHycOQYQNHGZB1', 'unique.padberg@example.net', 1);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (26, 'hodkiewicz.graciela', '$P$HBnc9OCZKACF0toOXtC4PrjfFN.wrL0', 'pacocha.matteo@example.net', 2);
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (27, 'henderson26', '$P$HM3IyiPBV/I/xGNosehGnzcYNJZ84l/', 'altenwerth.ruby@example.org', 2);

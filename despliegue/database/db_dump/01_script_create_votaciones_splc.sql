@@ -51,7 +51,7 @@ primary key(id)
 
 #Cookie
 create table if not exists cookie(
-number_id int not null,
+number_id varchar(40) not null,
 user_account_id int not null,
 primary key(number_id),
 foreign key(user_account_id) references user_account(id) on update no action on delete cascade

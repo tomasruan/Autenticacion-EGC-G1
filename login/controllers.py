@@ -3,6 +3,8 @@ from flask import Flask, redirect, url_for, request, render_template, make_respo
 from flask.json import jsonify
 from passlib.hash import phpass
 from random import randint
+import hashlib
+
 
 app = Flask(__name__)
 
@@ -11,16 +13,17 @@ app = Flask(__name__)
 def login():
     if request.method == 'GET':
         cookie = Cookie.query.filter_by(number_id=request.cookies.get('session_id')).first()
-
         if cookie is None:
             return render_template('login.html')
         else:
             return redirect('/')
 
     elif request.method == 'POST':
-        #Comprobar que no son vacios
         form_username = request.form['username']
         form_password = request.form['password']
+
+        if not validate(form_username, form_password):
+            return render_template('login.html', error='No deje ningún campo en blanco')
 
         user_from_db = User_account.query.filter_by(username=form_username).first()
 
@@ -39,11 +42,23 @@ def login():
 
 
 def create_cookie_and_save(user):
-    number_id = random_with_n_digits(7)
-    cookie = Cookie(number_id=number_id, user_account_id=user.id)
+    random_number = random_with_n_digits(15)
+    number_id_unhashed = (user.username*4) + str(random_number) + user.password
 
-    db.session.add(cookie)
-    db.session.commit()
+    hasher = hashlib.sha1()
+    hasher.update(number_id_unhashed.encode())
+
+    number_id = hasher.hexdigest()
+
+    cookie = Cookie.query.filter_by(user_account_id=user.id).first()
+
+    if not cookie:
+        cookie = Cookie(number_id=number_id, user_account_id=user.id)
+        db.session.add(cookie)
+        db.session.commit()
+    else:
+        cookie.number_id = number_id
+        db.session.commit()
 
     return cookie
 
@@ -54,7 +69,15 @@ def random_with_n_digits(n):
     return randint(range_start, range_end)
 
 
-@app.route('/cookies/<int:number_id>')
+def validate(*params):
+    for parameter in params:
+        if not parameter:
+            return False
+
+    return True
+
+
+@app.route('/cookies/<string:number_id>')
 def check_cookies(number_id):
     cookie_id = number_id
     cookie_db = Cookie.query.get(cookie_id)
@@ -121,4 +144,4 @@ def assign_role(user_id):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port='52000')
