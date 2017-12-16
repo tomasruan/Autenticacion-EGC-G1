@@ -10,11 +10,30 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-class TableNameExample(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
+#Modelos de las tablas
+
+class Role(db.Model):
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    name = db.Column(db.String(10), nullable=False)
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
 
 
-class TableNameExampleSchema(ma.ModelSchema):
-    class Meta:
-        model = TableNameExample
+class User_account(db.Model):
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
+class Cookie(db.Model):
+    number_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Cookie %r>' % self.number_id
