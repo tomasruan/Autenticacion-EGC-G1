@@ -100,7 +100,7 @@ def check_cookies(number_id):
     return jsonify(res)
 
 
-@app.route('/logout/<int:number_id>')
+@app.route('/logout/<string:number_id>')
 def logout_user(number_id):
     cookie_id = number_id
     cookie = Cookie.query.get(cookie_id)
