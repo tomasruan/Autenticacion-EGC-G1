@@ -4,9 +4,9 @@ cd ..
 
 docker build -t login_egc .
 
-export DOCKER_ID_USER=$USER
+export DOCKER_ID_USER=$DOCKER_USER
 
-docker login --username=$USER --password=$PASSWORD
+docker login --username=$DOCKER_USER --password=$DOCKER_PASSWORD
 
 docker tag login_egc $DOCKER_ID_USER/login_egc
 
