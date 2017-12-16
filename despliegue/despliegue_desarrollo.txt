@@ -11,5 +11,11 @@ docker-compose start -d
 
 2) Lo segundo que necesitamos es instalar las dependecias del projecto, como nosotros vamos a usar Python 3, haremos uso de su gestor de dependencias 'pip3'. Instalaremos todas las dependencias con el archivo 'requirements.txt' provisto en este mismo directorio
 
+3) Hay que configurar las siguientes variables de entorno:
+	
+	MARIADB_HOST=127.0.0.1
+	MARIADB_PORT=3306
+	MARIADB_USER=root
+	MARIADB_PASSWORD=root123
 
-3) Ya se puede ejecutar el proyecto con todo el entorno de desarrollo preparado
+4) Ya se puede ejecutar el proyecto con todo el entorno de desarrollo preparado
