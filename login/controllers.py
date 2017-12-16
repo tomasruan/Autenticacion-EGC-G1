@@ -100,12 +100,11 @@ def check_cookies(number_id):
     return jsonify(res)
 
 
-@app.route('/logout/<int:number_id>')
-def logout_user(number_id):
-    cookie_id = number_id
-    cookie = Cookie.query.get(cookie_id)
-
+@app.route('/logout/')
+def logout_user():
+    cookie=Cookie.query.get(request.cookies.get('session_id'))
     if cookie is not None:
+
         db.session.delete(cookie)
         db.session.commit()
 

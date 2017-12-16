@@ -1,16 +1,23 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import os
+
+
+uri_database = 'mysql://{user}:{password}@{host}:{port}/votaciones_splc'.format(user=os.environ['MARIADB_USER'],
+                                                                                password=os.environ['MARIADB_PASSWORD'],
+                                                                                host=os.environ['MARIADB_HOST'],
+                                                                                port=os.environ['MARIADB_PORT'])
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root123@127.0.0.1/votaciones_splc'
+app.config['SQLALCHEMY_DATABASE_URI'] = uri_database
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-#Modelos de las tablas
+# Modelos de las tablas
 
 class Role(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
@@ -32,7 +39,7 @@ class User_account(db.Model):
 
 
 class Cookie(db.Model):
-    number_id = db.Column(db.String, nullable=False, primary_key=True)
+    number_id = db.Column(db.String(40), nullable=False, primary_key=True)
     user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'), nullable=False)
 
     def __repr__(self):

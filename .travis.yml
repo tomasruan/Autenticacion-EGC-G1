@@ -4,7 +4,7 @@ python:
   - "3.5"
 
 services:
-  - mysql
+  - mariadb
 
 install:
   - pip install -r despliegue/requirements.txt
