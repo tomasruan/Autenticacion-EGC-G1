@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-cd ..
-
 docker build -t login_egc .
 
 export DOCKER_ID_USER=$DOCKER_USER
