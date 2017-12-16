@@ -18,3 +18,7 @@ before_install:
 script:
   - pytest
 
+branches:
+  only:
+  - master
+  - develop
