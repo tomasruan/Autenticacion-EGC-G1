@@ -23,4 +23,4 @@ def test_correct_cookie(client):
     assert res.status_code == 200
     assert res.json == {"codigo": 1,
                         "status": "Cookie valida y existente en la base de datos",
-                        "usuario": user_account_dict}
+"usuario": user_account_dict}

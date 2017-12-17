@@ -19,5 +19,4 @@ def app():
 
         #Borrar la información de arriba, para no dejar rastro en la db
         db.session.delete(cookie)
-        db.session.commit()
-
+db.session.commit()
