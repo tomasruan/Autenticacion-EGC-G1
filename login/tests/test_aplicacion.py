@@ -1,5 +1,6 @@
 from flask import url_for
 from database import Cookie, User_account
+import json
 
 
 def test_incorrect_cookie(client):
@@ -24,3 +25,23 @@ def test_correct_cookie(client):
     assert res.json == {"codigo": 1,
                         "status": "Cookie valida y existente en la base de datos",
                         "usuario": user_account_dict}
+
+
+def test_incorrect_user(client):
+
+    mimetype = 'application/json'
+    headers = {
+        'Content-Type': mimetype,
+        'Accept': mimetype
+    }
+    data = {
+        "role_id": 1
+    }
+    url = '/users/65416846684/role'
+
+    response = client.put(url, data=json.dumps(data), headers=headers)
+
+    assert response.status_code == 200
+    assert response.json == {"codigo": 0,
+                             "status": "Id de usuario incorrecta, no existe en la base de datos",
+                             "usuario": None}
