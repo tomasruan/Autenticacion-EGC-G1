@@ -21,7 +21,7 @@ before_install:
 script:
   - pytest
 
-before_deploy:
+after_success:
   - bash build_and_upload_docker_image.sh
 
 branches:
