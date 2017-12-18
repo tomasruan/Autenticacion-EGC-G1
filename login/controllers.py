@@ -103,6 +103,7 @@ def check_cookies(number_id):
 @app.route('/logout/')
 def logout_user():
     cookie=Cookie.query.get(request.cookies.get('session_id'))
+
     if cookie is not None:
 
         db.session.delete(cookie)
@@ -141,6 +142,13 @@ def assign_role(user_id):
 
     return jsonify(res)
 
+
+@app.route("/defineSession")
+def defineSession():
+    response=make_response('Setting cookie')
+    response.set_cookie('session_id', '2147483647')
+    print('2147483647')
+    return response
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='52000')
