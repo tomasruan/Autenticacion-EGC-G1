@@ -142,13 +142,12 @@ def assign_role(user_id):
 
     return jsonify(res)
 
-
-@app.route("/defineSession")
-def defineSession():
+@app.route("/defineSessionTest_logout_user")
+def defineSessionTest_logout_user():
     response=make_response('Setting cookie')
     response.set_cookie('session_id', '2147483647')
-    print('2147483647')
     return response
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='52000')
