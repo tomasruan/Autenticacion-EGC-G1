@@ -7,6 +7,7 @@ import hashlib
 
 
 app = Flask(__name__)
+db.init_app(app)
 
 
 @app.route('/login', methods=['GET', 'POST'])
