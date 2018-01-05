@@ -1,5 +1,6 @@
 from flask import url_for
 from database import Cookie, User_account
+import json
 
 
 def test_incorrect_cookie(client):
@@ -24,3 +25,66 @@ def test_correct_cookie(client):
     assert res.json == {"codigo": 1,
                         "status": "Cookie valida y existente en la base de datos",
                         "usuario": user_account_dict}
+
+
+def test_incorrect_user(client):
+    mimetype = 'application/json'
+    headers = {
+        'Content-Type': mimetype,
+        'Accept': mimetype
+    }
+    data = {
+        "role_id": 1
+    }
+    url = '/users/65416846684/role'
+
+    response = client.put(url, data=json.dumps(data), headers=headers)
+
+    assert response.status_code == 200
+    assert response.json == {"codigo": 0,
+                             "status": "Id de usuario incorrecta, no existe en la base de datos",
+                             "usuario": None}
+
+
+def test_incorrect_role(client):
+    mimetype = 'application/json'
+    headers = {
+        'Content-Type': mimetype,
+        'Accept': mimetype
+    }
+    data = {
+        "role_id": 3
+    }
+    url = '/users/1/role'
+
+    response = client.put(url, data=json.dumps(data), headers=headers)
+
+    assert response.status_code == 200
+    assert response.json == {"codigo": 2,
+                             "status": "Role incorrecto, no existe tal role",
+                             "usuario": None}
+
+def test_all_correct(client):
+    user = User_account.query.filter_by(id=1).first()
+    mimetype = 'application/json'
+    headers = {
+        'Content-Type': mimetype,
+        'Accept': mimetype
+    }
+    data = {
+        "role_id": 1
+    }
+    url = '/users/1/role'
+
+    response = client.put(url, data=json.dumps(data), headers=headers)
+
+    user_account_json = {"id": user.id,
+                         "username": user.username,
+                         "password": user.password,
+                         "email": user.email,
+                         "role_id": user.role_id}
+
+    assert response.status_code == 200
+    assert response.json == {"codigo": 1,
+                             "status": "Role cambiado",
+                             "usuario": user_account_json}
