@@ -16,6 +16,6 @@ RUN apt-get install -y python3 python3-pip libmysqlclient-dev
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-EXPOSE 5000
+EXPOSE 52000
 
 CMD ["python3", "controllers.py"]
