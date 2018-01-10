@@ -11,6 +11,7 @@ uri_database = 'mysql://{user}:{password}@{host}:{port}/votaciones_splc'.format(
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 150
 app.config['SQLALCHEMY_DATABASE_URI'] = uri_database
 
 db = SQLAlchemy(app)

@@ -1,5 +1,5 @@
-from flask import url_for
-from database import Cookie, User_account
+from flask import url_for, request
+from database import Cookie, User_account, db
 import json
 
 
@@ -88,3 +88,18 @@ def test_all_correct(client):
     assert response.json == {"codigo": 1,
                              "status": "Role cambiado",
                              "usuario": user_account_json}
+
+
+
+
+
+def test_logout_user(client):
+
+    client.get(url_for('defineSessionTest_logout_user'))
+    numeroCookies = db.session.query(Cookie).count()
+
+    cookie=request.cookies.get('session_id')
+    client.get(url_for('logout_user'))
+    numeroCookies1 = db.session.query(Cookie).count()
+    assert numeroCookies == (numeroCookies1 + 1)
+
