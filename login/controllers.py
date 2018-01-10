@@ -7,6 +7,7 @@ import hashlib
 
 
 app = Flask(__name__)
+db.init_app(app)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -103,6 +104,7 @@ def check_cookies(number_id):
 @app.route('/logout/')
 def logout_user():
     cookie=Cookie.query.get(request.cookies.get('session_id'))
+
     if cookie is not None:
 
         db.session.delete(cookie)
@@ -140,6 +142,12 @@ def assign_role(user_id):
                "usuario": None}
 
     return jsonify(res)
+
+@app.route("/defineSessionTest_logout_user")
+def defineSessionTest_logout_user():
+    response=make_response('Setting cookie')
+    response.set_cookie('session_id', '2147483647')
+    return response
 
 
 if __name__ == '__main__':
