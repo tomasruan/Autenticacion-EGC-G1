@@ -2,6 +2,7 @@ from database import db, Cookie, Role, User_account
 from flask import Flask, redirect, url_for, request, render_template, make_response
 from flask.json import jsonify
 from passlib.hash import phpass
+import random
 from random import randint
 import hashlib
 
@@ -12,6 +13,11 @@ db.init_app(app)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    ops = {'+','-','*'}
+    num1 = random.randint(1, 10)
+    num2 = random.randint(1, 10)
+    op = random.choice(list(ops))
+    answer = str(num1) + op + str(num2)
     if request.method == 'GET':
         cookie = Cookie.query.filter_by(number_id=request.cookies.get('session_id')).first()
         if cookie is None:
