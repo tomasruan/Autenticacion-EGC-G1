@@ -28,7 +28,7 @@ def login():
         if cookie is None:
             return render_template('login.html',captcha=captcha)
         else:
-          return redirect('https://g1admvotes.egc.duckdns.org/')
+            return redirect('https://g1admvotes.egc.duckdns.org/')
 
     elif request.method == 'POST':
         form_username = request.form['username']
