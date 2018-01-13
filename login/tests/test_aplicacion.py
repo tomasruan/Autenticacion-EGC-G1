@@ -90,9 +90,6 @@ def test_all_correct(client):
                              "usuario": user_account_json}
 
 
-
-
-
 def test_logout_user(client):
 
     client.get(url_for('defineSessionTest_logout_user'))
@@ -102,4 +99,3 @@ def test_logout_user(client):
     client.get(url_for('logout_user'))
     numeroCookies1 = db.session.query(Cookie).count()
     assert numeroCookies == (numeroCookies1 + 1)
-
