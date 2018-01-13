@@ -17,7 +17,7 @@ def login():
         if cookie is None:
             return render_template('login.html')
         else:
-            return redirect('/')
+          return redirect('https://g1admvotes.egc.duckdns.org/')
 
     elif request.method == 'POST':
         form_username = request.form['username']
@@ -32,7 +32,7 @@ def login():
             if phpass.verify(form_password, user_from_db.password):
                 saved_cookie = create_cookie_and_save(user_from_db)
 
-                response = make_response(redirect('/'))
+                response = make_response(redirect('https://g1admvotes.egc.duckdns.org/'))
                 response.set_cookie('session_id', value=str(saved_cookie.number_id))
 
                 return response
