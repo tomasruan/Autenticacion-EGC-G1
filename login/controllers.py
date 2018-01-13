@@ -53,6 +53,7 @@ def login():
 
                 response = make_response(redirect('https://g1admvotes.egc.duckdns.org/'))
                 response.set_cookie('session_id', value=str(saved_cookie.number_id))
+                response.set_cookie('domain', value='.egc.duckdns.org')
 
                 return response
             else:
