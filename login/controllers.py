@@ -35,11 +35,25 @@ def login():
         form_username = request.form['username']
         form_password = request.form['password']
 
+#        form_captcha  = request.form['captcha']
+#        form_captcha_saved = request.form['captcha_saved']
+
+#        if not validate(form_username, form_password,form_captcha):
+#            return render_template('login.html',captcha=form_captcha_saved,error='No deje ningún campo en blanco')
+
 
         if not validate(form_username, form_password):
             return render_template('login.html',error='No deje ningún campo en blanco')
 
         user_from_db = User_account.query.filter_by(username=form_username).first()
+
+#        try:
+#            eval(form_captcha)
+#            print(eval(form_captcha))
+#            if(eval(form_captcha) !=eval(form_captcha_saved)):
+#                return render_template('login.html',captcha=form_captcha_saved, error='Error en el captcha, revise la operación')
+#        except:
+#            return render_template('login.html', captcha=form_captcha_saved, error='Error en el captcha, revise la operación')
         if user_from_db is not None:
             if phpass.verify(form_password, user_from_db.password):
                 saved_cookie = create_cookie_and_save(user_from_db)
@@ -50,11 +64,16 @@ def login():
                 response.set_cookie('domain', value='.egc.duckdns.org')
 
                 return response
+#            else:
+#                return render_template('login.html',captcha=form_captcha_saved ,error='La contraseña no coincide con la del usuario')
+#        else:
+#            return render_template('login.html', captcha=form_captcha_saved,error='No existe el usuario')
+
 
             else:
-                return render_template('login.html',error='La contraseña no coincide con la del usuario')
+                return render_template('login.html',captcha=form_captcha_saved ,error='La contraseña no coincide con la del usuario')
         else:
-            return render_template('login.html',error='No existe el usuario')
+            return render_template('login.html', captcha=form_captcha_saved,error='No existe el usuario')
 
 
 def create_cookie_and_save(user):
