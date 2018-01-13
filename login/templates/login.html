@@ -28,24 +28,15 @@
 
 
 						<!-- START CAPTCHA -->
-						<br>
-						<div class="capbox">
+                        <body onLoad="ChangeCaptcha()">
 
-						<div id="CaptchaDiv"></div>
+                        <input type="text" id="randomfield" disabled>
+                        <input id="CaptchaEnter" size="20" maxlength="6" />
 
-							<div class="capbox-inner">
-								Type the above number:<br>
-
-								<input type="hidden" id="txtCaptcha">
-								<input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
-
-							</div>
-						</div>
-						<br><br>
 						<!-- END CAPTCHA -->
 
 
-						<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" >
+						<input type="submit" value="Log in"  onclick="check()" class="btn btn-primary btn-large btn-block" >
 						<br>
 					</div>
 				</div>
@@ -53,51 +44,27 @@
 		</form>
 			<script type="text/javascript">
 
-		// Captcha Script
+            function ChangeCaptcha() {
+                var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+                var string_length = 6;
+                var ChangeCaptcha = '';
+                for (var i=0; i<string_length; i++) {
+                    var rnum = Math.floor(Math.random() * chars.length);
+                    ChangeCaptcha += chars.substring(rnum,rnum+1);
+                }
+                document.getElementById('randomfield').value = ChangeCaptcha;
+            }
+            function check() {
+                if(document.getElementById('CaptchaEnter').value == document.getElementById('randomfield').value ) {
+                    return true;
+                }
+                else {
+                    alert('Please re-check the captcha');
+                }
+            }
 
-		function checkform(theform){
-		var why = "";
-
-		if(theform.CaptchaInput.value == ""){
-    		why += "- Please Enter CAPTCHA Code.\n";
-		}
-		if(theform.CaptchaInput.value != ""){
-	    	if(ValidCaptcha(theform.CaptchaInput.value) == false){
-	    	why += "- The CAPTCHA Code Does Not Match.\n";
-		    }
-		}
-		if(why != ""){
-		    alert(why);
-		    return false;
-		}
-		}
-
-		var a = Math.ceil(Math.random() * 9)+ '';
-		var b = Math.ceil(Math.random() * 9)+ '';
-		var c = Math.ceil(Math.random() * 9)+ '';
-		var d = Math.ceil(Math.random() * 9)+ '';
-		var e = Math.ceil(Math.random() * 9)+ '';
-
-		var code = a + b + c + d + e;
-		document.getElementById("txtCaptcha").value = code;
-		document.getElementById("CaptchaDiv").innerHTML = code;
-
-		// Validate input against the generated number
-		function ValidCaptcha(){
-		    var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
-		    var str2 = removeSpaces(document.getElementById('CaptchaInput').value);
-		    if (str1 == str2){
-		    return true;
-		    }else{
-		        return false;
-		    }
-		    }
-
-		// Remove the spaces from the entered and generated code
-		function removeSpaces(string){
-		    return string.split(' ').join('');
-		}
 		</script>
+
 	</body>
 </html>
 
