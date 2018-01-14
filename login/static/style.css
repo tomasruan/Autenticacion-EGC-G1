@@ -83,3 +83,17 @@ p.error {
     background-color: white;
     padding: 15px;
 }
+
+#randomfield {
+-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  width: 200px;
+  color: black;
+  border-color: black;
+  text-align: center;
+  font-size: 40px;
+  background-image: url('http://4.bp.blogspot.com/-EEMSa_GTgIo/UpAgBQaE6-I/AAAAAAAACUE/jdcxZVXelzA/s1600/ca.png');

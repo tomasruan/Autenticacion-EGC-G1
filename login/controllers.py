@@ -7,46 +7,34 @@ import hashlib
 import random
 import copy
 
-
 app = Flask(__name__)
 db.init_app(app)
 
-def get_random_operation():
-    ops = {'+', '-', '*'}
-    num1 = random.randint(1, 10)
-    num2 = random.randint(1, 10)
-    op = random.choice(list(ops))
-    captcha = str(num1) + op + str(num2)
-    return captcha
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'GET':
-        captcha = get_random_operation()
+
         cookie = Cookie.query.filter_by(number_id=request.cookies.get('session_id')).first()
         if cookie is None:
-            return render_template('login.html',captcha=captcha)
+
+
+            return render_template('login.html')
         else:
+
             return redirect('https://g1admvotes.egc.duckdns.org/')
 
     elif request.method == 'POST':
         form_username = request.form['username']
         form_password = request.form['password']
-        form_captcha  = request.form['captcha']
-        form_captcha_saved = request.form['captcha_saved']
 
-        if not validate(form_username, form_password,form_captcha):
-            return render_template('login.html',captcha=form_captcha_saved,error='No deje ningún campo en blanco')
+        if not validate(form_username, form_password):
+            return render_template('login.html', error='No deje ningún campo en blanco')
 
         user_from_db = User_account.query.filter_by(username=form_username).first()
-        try:
-            eval(form_captcha)
-            print(eval(form_captcha))
-            if(eval(form_captcha) !=eval(form_captcha_saved)):
-                return render_template('login.html',captcha=form_captcha_saved, error='Error en el captcha, revise la operación')
-        except:
-            return render_template('login.html', captcha=form_captcha_saved, error='Error en el captcha, revise la operación')
+
         if user_from_db is not None:
             if phpass.verify(form_password, user_from_db.password):
                 saved_cookie = create_cookie_and_save(user_from_db)
@@ -55,15 +43,17 @@ def login():
                 response.set_cookie('session_id', value=str(saved_cookie.number_id), domain='.egc.duckdns.org')
 
                 return response
+
             else:
-                return render_template('login.html',captcha=form_captcha_saved ,error='La contraseña no coincide con la del usuario')
+                return render_template('login.html',
+                                       error='La contraseña no coincide con la del usuario')
         else:
-            return render_template('login.html', captcha=form_captcha_saved,error='No existe el usuario')
+            return render_template('login.html', error='No existe el usuario')
 
 
 def create_cookie_and_save(user):
     random_number = random_with_n_digits(15)
-    number_id_unhashed = (user.username*4) + str(random_number) + user.password
+    number_id_unhashed = (user.username * 4) + str(random_number) + user.password
 
     hasher = hashlib.sha1()
     hasher.update(number_id_unhashed.encode())
@@ -122,10 +112,9 @@ def check_cookies(number_id):
 
 @app.route('/logout/')
 def logout_user():
-    cookie=Cookie.query.get(request.cookies.get('session_id'))
+    cookie = Cookie.query.get(request.cookies.get('session_id'))
 
     if cookie is not None:
-
         db.session.delete(cookie)
         db.session.commit()
 
@@ -162,9 +151,10 @@ def assign_role(user_id):
 
     return jsonify(res)
 
+
 @app.route("/defineSessionTest_logout_user")
 def defineSessionTest_logout_user():
-    response=make_response('Setting cookie')
+    response = make_response('Setting cookie')
     response.set_cookie('session_id', '2147483647')
     return response
 
