@@ -8,11 +8,11 @@
     {% if error %}
         <p class="error"> {{ error }} </p>
     {% endif %}
-		<form action="/login" method="POST">
+		<form action="/login" method="POST"  onsubmit="return checkform(this);">
 			<div class="login">
 				<div class="login-screen">
 					<div class="app-title">
-						<h1>Logineo</h1>
+						<h1>Inicio de sesión</h1>
 					</div>
 
 					<div class="login-form">
@@ -26,12 +26,45 @@
 						<label class="login-field-icon fui-lock" for="login-pass"></label>
 						</div>
 
-						<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" >
+
+						<!-- START CAPTCHA -->
+                        <body onLoad="ChangeCaptcha()">
+
+                        <input type="text" id="randomfield" disabled>
+                        <input id="CaptchaEnter" size="20" maxlength="6" />
+
+						<!-- END CAPTCHA -->
+
+
+						<input type="submit" value="Log in"  onclick="check()" class="btn btn-primary btn-large btn-block" >
 						<br>
 					</div>
 				</div>
 			</div>
 		</form>
+			<script type="text/javascript">
+
+            function ChangeCaptcha() {
+                var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+                var string_length = 6;
+                var ChangeCaptcha = '';
+                for (var i=0; i<string_length; i++) {
+                    var rnum = Math.floor(Math.random() * chars.length);
+                    ChangeCaptcha += chars.substring(rnum,rnum+1);
+                }
+                document.getElementById('randomfield').value = ChangeCaptcha;
+            }
+            function check() {
+                if(document.getElementById('CaptchaEnter').value == document.getElementById('randomfield').value ) {
+                    return true;
+                }
+                else {
+                    alert('Please re-check the captcha');
+                }
+            }
+
+		</script>
+
 	</body>
 </html>
 
