@@ -12,7 +12,7 @@
 			<div class="login">
 				<div class="login-screen">
 					<div class="app-title">
-						<h1>Inicio de sesión</h1>
+						<h1>Login</h1>
 					</div>
 
 					<div class="login-form">
@@ -36,7 +36,7 @@
 						<!-- END CAPTCHA -->
 
 
-						<input type="submit" value="Log in"  onclick="check()" class="btn btn-primary btn-large btn-block" >
+						<input type="submit" value="Log in"  class="btn btn-primary btn-large btn-block" >
 						<br>
 					</div>
 				</div>
@@ -44,8 +44,7 @@
 		</form>
 			<script type="text/javascript">
 
-            function ChangeCaptcha() {
-                var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
                 var string_length = 6;
                 var ChangeCaptcha = '';
                 for (var i=0; i<string_length; i++) {
@@ -53,13 +52,34 @@
                     ChangeCaptcha += chars.substring(rnum,rnum+1);
                 }
                 document.getElementById('randomfield').value = ChangeCaptcha;
-            }
+
+
+            function checkform(theform) {
+            var why = "";
+
+			if(theform.CaptchaEnter.value == ""){
+			why += "- Please Enter CAPTCHA Code.\n";
+			}
+			if(theform.CaptchaEnter.value != ""){
+			if(check() == false){
+			why += "- The CAPTCHA Code Does Not Match.\n";
+			}
+			}
+			if(why != ""){
+			alert(why);
+			return false;
+			}
+			}
+
+
             function check() {
                 if(document.getElementById('CaptchaEnter').value == document.getElementById('randomfield').value ) {
                     return true;
                 }
                 else {
+
                     alert('Please re-check the captcha');
+                    return false
                 }
             }
 
