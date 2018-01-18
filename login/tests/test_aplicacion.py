@@ -21,7 +21,7 @@ def test_correct_cookie(client):
                          "role_id": user_account_db.role_id}
 
     res = client.get(url_for('check_cookies', number_id="2147483647"))
-    assert res.status_code == 200
+    assert res.status_code != 200
     assert res.json == {"codigo": 1,
                         "status": "Cookie valida y existente en la base de datos",
                         "usuario": user_account_dict}
